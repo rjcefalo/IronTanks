@@ -1,3 +1,5 @@
+
+
 export default class Player {
   constructor(id, playerType, player) {
     this.canvas = document.getElementById(id);
@@ -11,7 +13,7 @@ export default class Player {
       // this.ctx.translate(width, 0);
       // this.ctx.scale(-1, 1);
     }
-    this.playerPosY = this.canvas.height / 2;
+    this.playerPosY = Math.floor(this.canvas.height / 2);
   }
 
   draw() {
@@ -22,5 +24,9 @@ export default class Player {
       this.modelo.width * 2,
       this.modelo.height * 2,
     );
+  }
+
+  gravity() {
+    this.playerPosY++;
   }
 }
