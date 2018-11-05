@@ -1,26 +1,12 @@
-class Background {
-  constructor() {
-    this.canvas = document.getElementById('ironcanvas');
-    this.ctx = this.canvas.getContext('2d');
-    this.bgX = 0;
-    this.bgY = 0;
-  }
+import Background from './Background.js';
 
-  draw() {
-    this.modelo = new Image();
-    this.modelo.src = '';
-    this.ctx.drawImage(
-      this.modelo,
-      this.bgX,
-      this.bgY,
-      this.canvas.width,
-      this.canvas.height,
-    );
-    this.ctx.drawImage(
-      this.modelo,
-      this.bgX + this.canvas.width,
-      this.bgY,
-      this.canvas.width,
-      this.canvas.height,
-    );
-  }
+window.onload = function () {
+  $('#game-board').html('<canvas id="ironcanvas" height="500" width="800"></canvas>');
+  const background = new Background('ironcanvas');
+  let counter = 0;
+  const intervalo = setInterval(() => {
+    background.draw();
+    counter++;
+    if (counter == 50) clearInterval(intervalo);
+  }, 1000 / 60);
+};
