@@ -16,10 +16,5 @@ export default class Background {
       this.canvas.width,
       this.canvas.height,
     );
-    console.log('here');
-  }
-
-  drawShape() {
-    this.ctx.fillRect(0, 0, 100, 100);
   }
 }
