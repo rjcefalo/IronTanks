@@ -1,4 +1,5 @@
 /* eslint-disable import/extensions */
+/* eslint-disable no-use-before-define */
 import Background from './Background.js';
 import GroundGenerator from './GroundGenerator.js';
 import Player from './Player.js';
@@ -10,7 +11,6 @@ window.onload = function () {
     '<canvas id="ironcanvas" height="500" width="800"></canvas>',
   );
   $('#start').click(() => {
-    // eslint-disable-next-line no-use-before-define
     StartGame();
   });
 
@@ -39,7 +39,7 @@ window.onload = function () {
       $('#stop').click(() => {
         clearInterval(intervalo);
       });
-      console.log('timer');
+      //console.log('timer');
     }, 1000 / 60);
   }
 };

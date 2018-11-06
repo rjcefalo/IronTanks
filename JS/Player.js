@@ -1,7 +1,8 @@
+/* eslint-disable import/extensions */
 /* eslint-disable eqeqeq */
 /* eslint-disable prefer-arrow-callback */
-// eslint-disable-next-line import/extensions
 import Bullet from './Bullet.js';
+import CollitionGravity from './CollitionGravity.js';
 
 export default class Player {
   constructor(id, playerType, player) {
@@ -10,6 +11,8 @@ export default class Player {
     this.modelo = new Image();
     this.modelo.src = `../images/Vector/${player}.svg`;
     this.bullets = [];
+    this.bulletSpeedX = 0;
+    this.angle = 0;
     if (playerType == 1) {
       this.playerPosX = Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
     } else {
@@ -42,16 +45,51 @@ export default class Player {
   }
 
   setListener() {
+    document.onkeydown = function (e) {
+      e.preventDefault();
+      if (e.keyCode == 32) {
+        this.bulletSpeedX += 0.2;
+        console.log(this.bulletSpeedX);
+      }
+      if (e.keyCode == 38) {
+        this.angle++;
+        console.log(this.angle);
+      }
+      if (e.keyCode == 40) {
+        this.angle--;
+        console.log(this.angle);
+      }
+    }.bind(this);
+
     document.onkeyup = function (e) {
       e.preventDefault();
       if (e.keyCode == 32) {
         this.shoot();
+        this.bulletSpeedX = 0;
       }
     }.bind(this);
+
+    if (this.bullets.length == 1 && CollitionGravity(
+      this.bullets[0].bulletPosYIni,
+      this.bullets[0].modelo.height,
+      this.playerPosY + this.modelo.height * 2,
+    )
+    ) {
+      console.log(CollitionGravity(
+        this.bullets[0].bulletPosYIni,
+        this.bullets[0].modelo.height,
+        this.playerPosY + this.modelo.height * 2,
+      ));
+      this.bullets.pop();
+    }
   }
 
   shoot() {
-    const bullet = new Bullet('ironcanvas', 1, 'bulletPlayer1', this.playerPosX, this.playerPosY);
-    this.bullets.push(bullet);
+    if (this.bullets.length < 1) {
+      this.bullets.push(new Bullet('ironcanvas', this.modelo.height * 2, 'bulletPlayer1', this.playerPosX, this.playerPosY, this.angle, this.bulletSpeedX));
+    }
   }
+
+  
+
 }
