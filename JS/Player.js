@@ -14,6 +14,7 @@ export default class Player {
     this.bulletSpeedX = 0;
     this.angle = 0;
     this.fuel = 100;
+    this.turn = true;
     if (playerType == 1) {
       this.playerPosX =        Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
     } else {
@@ -33,9 +34,6 @@ export default class Player {
       this.modelo.width * 2,
       this.modelo.height * 2,
     );
-    // this.bullets = this.bullets.filter(function (bullet) {
-    //   return bullet.x < this.canvas.width;
-    // }.bind(this));
 
     this.bullets.forEach(function (bullet) {
       bullet.draw();
@@ -106,6 +104,7 @@ export default class Player {
         ),
       );
       this.bullets.pop();
+      this.endTurn();
     }
   }
 
@@ -123,5 +122,9 @@ export default class Player {
         ),
       );
     }
+  }
+
+  endTurn() {
+    this.turn = false;
   }
 }

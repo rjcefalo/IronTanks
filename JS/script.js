@@ -8,7 +8,7 @@ import CollitionGravity from './CollitionGravity.js';
 
 window.onload = function () {
   $('#game-board').html(
-    '<canvas id="ironcanvas" height="500" width="1000"></canvas>',
+    `<canvas id="ironcanvas" height="${window.innerHeight - 50}" width="${window.innerWidth}"></canvas>`,
   );
   $('#start').click(() => {
     StartGame();
@@ -26,6 +26,7 @@ window.onload = function () {
       background.draw();
       ground.drawGround();
       players[0].draw();
+      players[1].draw();
 
       if (!CollitionGravity(
         players[0].playerPosY,
@@ -35,7 +36,29 @@ window.onload = function () {
       ) {
         players[0].gravity();
       }
-      players[0].setListener();
+
+      if (!CollitionGravity(
+        players[1].playerPosY,
+        players[1].modelo.height * 2,
+        ground.startY,
+      )
+      ) {
+        players[1].gravity();
+      }
+      // players[0].setListener();
+      if (players[0].turn == true) {
+        players[0].setListener();
+        if (players[0].turn == false) {
+          players[1].turn = true;
+          console.log(players[0].turn);
+        }
+      } else if (players[1].turn == true) {
+        players[1].setListener();
+        if (players[1].turn == false) {
+          players[0].turn = true;
+          console.log(players[0].turn);
+        }
+      }
       $('#stop').click(() => {
         clearInterval(intervalo);
       });
