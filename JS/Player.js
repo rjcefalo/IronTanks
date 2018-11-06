@@ -12,16 +12,18 @@ export default class Player {
     this.modelo.src = `../images/Vector/${player}.svg`;
     this.bullets = [];
     this.bulletSpeedX = 0;
-    this.angle = 0;
     this.fuel = 100;
     this.turn = true;
-    if (playerType == 1) {
+    this.playerType = playerType;
+    if (this.playerType == 1) {
       this.playerPosX =        Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
+      this.angle = 0;
     } else {
       /* ((               max                   ) -         min            ) +        min             ; */
       this.playerPosX =        Math.random()
           * (this.canvas.width - this.modelo.width * 2 - this.canvas.width / 2)
         + this.canvas.width / 2;
+      this.angle = 180;
     }
     this.playerPosY = Math.floor(this.canvas.height / 2);
   }
@@ -63,7 +65,7 @@ export default class Player {
       if (e.keyCode == 37) {
         if (this.fuel > 0) {
           this.playerPosX -= 2;
-          this.fuel--;
+          this.fuel -= 2;
         } else {
           alert('out of fuel');
         }
@@ -72,7 +74,7 @@ export default class Player {
       if (e.keyCode == 39) {
         if (this.fuel > 0) {
           this.playerPosX += 2;
-          this.fuel--;
+          this.fuel -= 2;
         } else {
           alert('out of fuel');
         }
@@ -105,6 +107,7 @@ export default class Player {
       );
       this.bullets.pop();
       this.endTurn();
+      this.fuel = 100;
     }
   }
 
@@ -113,7 +116,7 @@ export default class Player {
       this.bullets.push(
         new Bullet(
           'ironcanvas',
-          this.modelo.height * 2,
+          this.playerType,
           'bulletPlayer1',
           this.playerPosX,
           this.playerPosY,
