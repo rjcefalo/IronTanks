@@ -6,8 +6,9 @@ export default class Bullet {
     this.modelo.src = `../images/Vector/${bullet}.svg`;
     this.bulletPosXIni = bulletPosXIni;
     this.bulletPosYIni = bulletPosYIni;
-    this.vX = 5;
-    this.gravity = 0.5;
+    this.vX = 8;
+    this.vY = -10;
+    this.gravity = 0.25;
   }
 
   draw() {
@@ -22,5 +23,7 @@ export default class Bullet {
 
   move() {
     this.bulletPosXIni += this.vX;
+    this.vY += this.gravity;
+    this.bulletPosYIni += this.vY;
   }
 }

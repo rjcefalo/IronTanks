@@ -39,6 +39,7 @@ window.onload = function () {
       $('#stop').click(() => {
         clearInterval(intervalo);
       });
+      console.log('timer');
     }, 1000 / 60);
   }
 };
