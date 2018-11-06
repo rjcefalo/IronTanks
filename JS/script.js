@@ -8,7 +8,7 @@ import CollitionGravity from './CollitionGravity.js';
 
 window.onload = function () {
   $('#game-board').html(
-    '<canvas id="ironcanvas" height="500" width="800"></canvas>',
+    '<canvas id="ironcanvas" height="500" width="1000"></canvas>',
   );
   $('#start').click(() => {
     StartGame();
@@ -39,7 +39,7 @@ window.onload = function () {
       $('#stop').click(() => {
         clearInterval(intervalo);
       });
-      //console.log('timer');
+      // console.log('timer');
     }, 1000 / 60);
   }
 };

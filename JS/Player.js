@@ -13,11 +13,14 @@ export default class Player {
     this.bullets = [];
     this.bulletSpeedX = 0;
     this.angle = 0;
+    this.fuel = 100;
     if (playerType == 1) {
-      this.playerPosX = Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
+      this.playerPosX =        Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
     } else {
       /* ((               max                   ) -         min            ) +        min             ; */
-      this.playerPosX = Math.random() * ((this.canvas.width - this.modelo.width * 2) - (this.canvas.width / 2)) + (this.canvas.width / 2);
+      this.playerPosX =        Math.random()
+          * (this.canvas.width - this.modelo.width * 2 - this.canvas.width / 2)
+        + this.canvas.width / 2;
     }
     this.playerPosY = Math.floor(this.canvas.height / 2);
   }
@@ -59,6 +62,24 @@ export default class Player {
         this.angle--;
         console.log(this.angle);
       }
+      if (e.keyCode == 37) {
+        if (this.fuel > 0) {
+          this.playerPosX -= 2;
+          this.fuel--;
+        } else {
+          alert('out of fuel');
+        }
+        console.log(`Fuel left ${this.fuel}`);
+      }
+      if (e.keyCode == 39) {
+        if (this.fuel > 0) {
+          this.playerPosX += 2;
+          this.fuel--;
+        } else {
+          alert('out of fuel');
+        }
+        console.log(`Fuel left ${this.fuel}`);
+      }
     }.bind(this);
 
     document.onkeyup = function (e) {
@@ -69,27 +90,38 @@ export default class Player {
       }
     }.bind(this);
 
-    if (this.bullets.length == 1 && CollitionGravity(
-      this.bullets[0].bulletPosYIni,
-      this.bullets[0].modelo.height,
-      this.playerPosY + this.modelo.height * 2,
-    )
-    ) {
-      console.log(CollitionGravity(
+    if (
+      this.bullets.length == 1
+      && CollitionGravity(
         this.bullets[0].bulletPosYIni,
         this.bullets[0].modelo.height,
         this.playerPosY + this.modelo.height * 2,
-      ));
+      )
+    ) {
+      console.log(
+        CollitionGravity(
+          this.bullets[0].bulletPosYIni,
+          this.bullets[0].modelo.height,
+          this.playerPosY + this.modelo.height * 2,
+        ),
+      );
       this.bullets.pop();
     }
   }
 
   shoot() {
     if (this.bullets.length < 1) {
-      this.bullets.push(new Bullet('ironcanvas', this.modelo.height * 2, 'bulletPlayer1', this.playerPosX, this.playerPosY, this.angle, this.bulletSpeedX));
+      this.bullets.push(
+        new Bullet(
+          'ironcanvas',
+          this.modelo.height * 2,
+          'bulletPlayer1',
+          this.playerPosX,
+          this.playerPosY,
+          this.angle,
+          this.bulletSpeedX,
+        ),
+      );
     }
   }
-
-  
-
 }
