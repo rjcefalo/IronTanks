@@ -8,10 +8,11 @@ export default class Player {
   constructor(id, playerType, player) {
     this.canvas = document.getElementById(id);
     this.ctx = this.canvas.getContext('2d');
+    this.ctxShoot = this.canvas.getContext('2d');
     this.modelo = new Image();
     this.modelo.src = `../images/Vector/${player}.svg`;
     this.bullets = [];
-    this.bulletSpeedX = 0;
+    this.bulletSpeed = 0;
     this.fuel = 100;
     this.turn = true;
     this.playerType = playerType;
@@ -36,7 +37,9 @@ export default class Player {
       this.modelo.width * 2,
       this.modelo.height * 2,
     );
-
+    this.showAngle();
+    this.showGas();
+    this.showForce();
     this.bullets.forEach(function (bullet) {
       bullet.draw();
       bullet.move();
@@ -51,8 +54,7 @@ export default class Player {
     document.onkeydown = function (e) {
       e.preventDefault();
       if (e.keyCode == 32) {
-        this.bulletSpeedX += 0.2;
-        console.log(this.bulletSpeedX);
+        this.bulletSpeed += 0.1;
       }
       if (e.keyCode == 38) {
         this.angle++;
@@ -65,20 +67,14 @@ export default class Player {
       if (e.keyCode == 37) {
         if (this.fuel > 0) {
           this.playerPosX -= 2;
-          this.fuel -= 2;
-        } else {
-          alert('out of fuel');
+          this.fuel -= 1;
         }
-        console.log(`Fuel left ${this.fuel}`);
       }
       if (e.keyCode == 39) {
         if (this.fuel > 0) {
           this.playerPosX += 2;
-          this.fuel -= 2;
-        } else {
-          alert('out of fuel');
+          this.fuel -= 1;
         }
-        console.log(`Fuel left ${this.fuel}`);
       }
     }.bind(this);
 
@@ -86,7 +82,7 @@ export default class Player {
       e.preventDefault();
       if (e.keyCode == 32) {
         this.shoot();
-        this.bulletSpeedX = 0;
+        this.resetBulletSpeed();
       }
     }.bind(this);
 
@@ -98,16 +94,9 @@ export default class Player {
         this.playerPosY + this.modelo.height * 2,
       )
     ) {
-      console.log(
-        CollitionGravity(
-          this.bullets[0].bulletPosYIni,
-          this.bullets[0].modelo.height,
-          this.playerPosY + this.modelo.height * 2,
-        ),
-      );
       this.bullets.pop();
       this.endTurn();
-      this.fuel = 100;
+      this.resetFuel();
     }
   }
 
@@ -121,13 +110,57 @@ export default class Player {
           this.playerPosX,
           this.playerPosY,
           this.angle,
-          this.bulletSpeedX,
+          this.bulletSpeed,
         ),
       );
     }
   }
 
+  startTurn() {
+    this.turn = true;
+  }
+
   endTurn() {
     this.turn = false;
+  }
+
+  showAngle() {
+    this.ctx.font = '18px Arial';
+    this.ctx.strokeStyle = 'black';
+    this.ctx.fillStyle = 'white';
+    this.ctx.lineWidth = 4;
+    if (this.playerType == 1) {
+      this.ctx.strokeText(`Angle: ${this.angle}º`, this.playerPosX, this.playerPosY + 50);
+      this.ctx.fillText(`Angle: ${this.angle}º`, this.playerPosX, this.playerPosY + 50);
+    } else {
+      this.ctx.strokeText(`Angle: ${this.angle - 180}º`, this.playerPosX, this.playerPosY + 50);
+      this.ctx.fillText(`Angle: ${this.angle - 180}º`, this.playerPosX, this.playerPosY + 50);
+    }
+  }
+
+  showGas() {
+    this.ctx.font = '18px Arial';
+    this.ctx.strokeStyle = 'black';
+    this.ctx.fillStyle = 'white';
+    this.ctx.lineWidth = 4;
+    this.ctx.strokeText(`Fuel: ${this.fuel}%`, this.playerPosX, this.playerPosY + 94);
+    this.ctx.fillText(`Fuel: ${this.fuel}%`, this.playerPosX, this.playerPosY + 94);
+  }
+
+  showForce() {
+    this.ctx.font = '18px Arial';
+    this.ctx.strokeStyle = 'black';
+    this.ctx.fillStyle = 'white';
+    this.ctx.lineWidth = 4;
+    this.ctx.strokeText(`Force: ${this.bulletSpeed.toFixed(0)} m/sec`, this.playerPosX, this.playerPosY + 72);
+    this.ctx.fillText(`Force: ${this.bulletSpeed.toFixed(0)} m/sec`, this.playerPosX, this.playerPosY + 72);
+  }
+
+  resetFuel() {
+    this.fuel = 100;
+  }
+
+  resetBulletSpeed() {
+    this.bulletSpeed = 0;
   }
 }

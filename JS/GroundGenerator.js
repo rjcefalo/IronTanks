@@ -13,6 +13,7 @@ export default class GroundGenerator {
 
   drawGround() {
     this.ctx.beginPath();
+    this.ctx.strokeStyle = 'black';
     this.ctx.moveTo(this.startX, this.startY);
     this.ctx.lineTo(this.endX, this.startY);
     this.ctx.lineWidth = 20;

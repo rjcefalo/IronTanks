@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable import/extensions */
 /* eslint-disable no-use-before-define */
 import Background from './Background.js';
@@ -48,15 +49,14 @@ window.onload = function () {
       // players[0].setListener();
       if (players[0].turn == true) {
         players[0].setListener();
+        // Collition(players[0].playerPosX, players[0].playerPosY, players[0].modelo.width * 2, players[0].modelo.height * 2, players[0].bullets[0].bulletPosXIni, players[0].bullets[0].bulletPosYIni);
         if (players[0].turn == false) {
-          players[1].turn = true;
-          console.log(players[0].turn);
+          players[1].startTurn();
         }
       } else if (players[1].turn == true) {
         players[1].setListener();
         if (players[1].turn == false) {
-          players[0].turn = true;
-          console.log(players[0].turn);
+          players[0].startTurn();
         }
       }
       $('#stop').click(() => {
