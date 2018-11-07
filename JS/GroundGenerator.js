@@ -8,7 +8,7 @@ export default class GroundGenerator {
     this.endX = this.canvas.width;
     /* --------------Esto es para despues-------------- */
 
-    // this.endY = Math.random() * ((this.canvas.height - 50) - (this.canvas.height + 50)) + (this.canvas.height + 50);
+    this.endY = Math.random() * ((this.canvas.height - 50) - (this.canvas.height + 50)) + (this.canvas.height + 50);
   }
 
   drawGround() {
@@ -16,6 +16,7 @@ export default class GroundGenerator {
     this.ctx.strokeStyle = 'black';
     this.ctx.moveTo(this.startX, this.startY);
     this.ctx.lineTo(this.endX, this.startY);
+    this.ctx.globalAlpha = 1;
     this.ctx.lineWidth = 20;
     this.ctx.stroke();
     this.ctx.closePath();

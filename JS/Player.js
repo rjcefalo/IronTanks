@@ -9,14 +9,17 @@ export default class Player {
   constructor(id, playerType, player) {
     this.canvas = document.getElementById(id);
     this.ctx = this.canvas.getContext('2d');
-    this.ctxShoot = this.canvas.getContext('2d');
     this.modelo = new Image();
     this.modelo.src = `../images/Vector/${player}.svg`;
+    this.width = this.modelo.width * 2;
+    this.height = this.modelo.height * 2;
     this.bullets = [];
     this.bulletSpeed = 0;
     this.fuel = 100;
-    this.turn = true;
+    this.turn = false;
     this.playerType = playerType;
+    this.lives = 3;
+    this.opponent = null;
 
     if (this.playerType == 1) {
       this.playerPosX = Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
@@ -68,14 +71,14 @@ export default class Player {
       if (e.keyCode == 37) {
         if (this.fuel > 0) {
           this.playerPosX -= 2;
-          this.fuel -= 1;
+          // this.fuel -= 1;
         }
       }
 
       if (e.keyCode == 39) {
         if (this.fuel > 0) {
           this.playerPosX += 2;
-          this.fuel -= 1;
+          // this.fuel -= 1;
         }
       }
     }.bind(this);
@@ -84,6 +87,7 @@ export default class Player {
       e.preventDefault();
       if (e.keyCode == 32) {
         this.shoot();
+        this.fuel = 0;
         this.resetBulletSpeed();
       }
     }.bind(this);
@@ -129,7 +133,7 @@ export default class Player {
   showAngle() {
     this.ctx.font = '18px Arial';
     this.ctx.strokeStyle = 'black';
-    this.ctx.fillStyle = 'white';
+    this.showTurn();
     this.ctx.lineWidth = 4;
     if (this.playerType == 1) {
       this.ctx.strokeText(
@@ -159,7 +163,7 @@ export default class Player {
   showGas() {
     this.ctx.font = '18px Arial';
     this.ctx.strokeStyle = 'black';
-    this.ctx.fillStyle = 'white';
+    this.showTurn();
     this.ctx.lineWidth = 4;
     this.ctx.strokeText(
       `Fuel: ${this.fuel}%`,
@@ -176,7 +180,7 @@ export default class Player {
   showForce() {
     this.ctx.font = '18px Arial';
     this.ctx.strokeStyle = 'black';
-    this.ctx.fillStyle = 'white';
+    this.showTurn();
     this.ctx.lineWidth = 4;
     this.ctx.strokeText(
       `Velocity: ${this.bulletSpeed.toFixed(0)} m/sec`,
@@ -196,5 +200,18 @@ export default class Player {
 
   resetBulletSpeed() {
     this.bulletSpeed = 0;
+  }
+
+  showTurn() {
+    if (this.turn == true) { return this.ctx.fillStyle = 'white'; }
+    if (this.turn == false) { return this.ctx.fillStyle = 'gray'; }
+  }
+
+  setOpponent(opponent) {
+    this.opponent = opponent;
+  }
+
+  liveLost(){
+    
   }
 }

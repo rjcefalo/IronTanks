@@ -15,5 +15,6 @@ export default function Collition(
     && body1Y <= body2Y + body2Height
   ) {
     return true;
-  } return false;
+  }
+  return false;
 }
