@@ -1,3 +1,5 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable consistent-return */
 /* eslint-disable operator-linebreak */
 /* eslint-disable import/extensions */
 /* eslint-disable eqeqeq */
@@ -18,14 +20,18 @@ export default class Player {
     this.fuel = 100;
     this.turn = false;
     this.playerType = playerType;
-    this.lives = 3;
+    this.lives = 0;
     this.opponent = null;
 
     if (this.playerType == 1) {
-      this.playerPosX = Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
+      this.playerPosX =
+        Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
       this.angle = 0;
     } else {
-      this.playerPosX = Math.random() * (this.canvas.width - this.modelo.width * 2 - this.canvas.width / 2) + this.canvas.width / 2;
+      this.playerPosX =
+        Math.random() *
+          (this.canvas.width - this.modelo.width * 2 - this.canvas.width / 2) +
+        this.canvas.width / 2;
       this.angle = 180;
     }
     this.playerPosY = Math.floor(this.canvas.height / 2);
@@ -43,6 +49,7 @@ export default class Player {
     this.showAngle();
     this.showGas();
     this.showForce();
+    this.showLives();
     this.bullets.forEach(function (bullet) {
       bullet.draw();
       bullet.move();
@@ -139,23 +146,23 @@ export default class Player {
       this.ctx.strokeText(
         `Angle: ${this.angle}º`,
         this.playerPosX,
-        this.playerPosY + 50,
+        this.playerPosY + 50 + 30,
       );
       this.ctx.fillText(
         `Angle: ${this.angle}º`,
         this.playerPosX,
-        this.playerPosY + 50,
+        this.playerPosY + 50 + 30,
       );
     } else {
       this.ctx.strokeText(
         `Angle: ${this.angle - 180}º`,
         this.playerPosX,
-        this.playerPosY + 50,
+        this.playerPosY + 50 + 30,
       );
       this.ctx.fillText(
         `Angle: ${this.angle - 180}º`,
         this.playerPosX,
-        this.playerPosY + 50,
+        this.playerPosY + 50 + 30,
       );
     }
   }
@@ -168,12 +175,12 @@ export default class Player {
     this.ctx.strokeText(
       `Fuel: ${this.fuel}%`,
       this.playerPosX,
-      this.playerPosY + 94,
+      this.playerPosY + 94 + 30,
     );
     this.ctx.fillText(
       `Fuel: ${this.fuel}%`,
       this.playerPosX,
-      this.playerPosY + 94,
+      this.playerPosY + 94 + 30,
     );
   }
 
@@ -185,12 +192,12 @@ export default class Player {
     this.ctx.strokeText(
       `Velocity: ${this.bulletSpeed.toFixed(0)} m/sec`,
       this.playerPosX,
-      this.playerPosY + 72,
+      this.playerPosY + 72 + 30,
     );
     this.ctx.fillText(
       `Velocity: ${this.bulletSpeed.toFixed(0)} m/sec`,
       this.playerPosX,
-      this.playerPosY + 72,
+      this.playerPosY + 72 + 30,
     );
   }
 
@@ -203,15 +210,44 @@ export default class Player {
   }
 
   showTurn() {
-    if (this.turn == true) { return this.ctx.fillStyle = 'white'; }
-    if (this.turn == false) { return this.ctx.fillStyle = 'gray'; }
+    if (this.turn == true) {
+      return (this.ctx.fillStyle = 'white');
+    }
+    if (this.turn == false) {
+      return (this.ctx.fillStyle = 'gray');
+    }
   }
 
   setOpponent(opponent) {
     this.opponent = opponent;
   }
 
-  liveLost(){
-    
+  lifeLost() {
+    this.lives++;
+  }
+
+  showLives() {
+    this.ctx.font = '18px Arial';
+    this.ctx.strokeStyle = 'black';
+    this.showTurn();
+    this.ctx.lineWidth = 4;
+    this.ctx.strokeText(
+      `Points: ${this.lives}`,
+      this.playerPosX,
+      this.playerPosY - 72,
+    );
+    this.ctx.fillText(
+      `Points: ${this.lives}`,
+      this.playerPosX,
+      this.playerPosY - 72,
+    );
+  }
+
+  destroyBullet() {
+    if (this.bullets.length == 1) {
+      this.bullets.pop();
+      this.endTurn();
+      this.resetFuel();
+    }
   }
 }
