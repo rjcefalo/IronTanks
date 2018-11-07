@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable import/extensions */
 /* eslint-disable eqeqeq */
 /* eslint-disable prefer-arrow-callback */
@@ -16,14 +17,12 @@ export default class Player {
     this.fuel = 100;
     this.turn = true;
     this.playerType = playerType;
+
     if (this.playerType == 1) {
-      this.playerPosX =        Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
+      this.playerPosX = Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
       this.angle = 0;
     } else {
-      /* ((               max                   ) -         min            ) +        min             ; */
-      this.playerPosX =        Math.random()
-          * (this.canvas.width - this.modelo.width * 2 - this.canvas.width / 2)
-        + this.canvas.width / 2;
+      this.playerPosX = Math.random() * (this.canvas.width - this.modelo.width * 2 - this.canvas.width / 2) + this.canvas.width / 2;
       this.angle = 180;
     }
     this.playerPosY = Math.floor(this.canvas.height / 2);
@@ -37,6 +36,7 @@ export default class Player {
       this.modelo.width * 2,
       this.modelo.height * 2,
     );
+
     this.showAngle();
     this.showGas();
     this.showForce();
@@ -56,20 +56,22 @@ export default class Player {
       if (e.keyCode == 32) {
         this.bulletSpeed += 0.1;
       }
+
       if (e.keyCode == 38) {
         this.angle++;
-        console.log(this.angle);
       }
+
       if (e.keyCode == 40) {
         this.angle--;
-        console.log(this.angle);
       }
+
       if (e.keyCode == 37) {
         if (this.fuel > 0) {
           this.playerPosX -= 2;
           this.fuel -= 1;
         }
       }
+
       if (e.keyCode == 39) {
         if (this.fuel > 0) {
           this.playerPosX += 2;
@@ -87,9 +89,9 @@ export default class Player {
     }.bind(this);
 
     if (
-      this.bullets.length == 1
-      && CollitionGravity(
-        this.bullets[0].bulletPosYIni,
+      this.bullets.length == 1 &&
+      CollitionGravity(
+        this.bullets[0].bulletPosY,
         this.bullets[0].modelo.height,
         this.playerPosY + this.modelo.height * 2,
       )
@@ -130,11 +132,27 @@ export default class Player {
     this.ctx.fillStyle = 'white';
     this.ctx.lineWidth = 4;
     if (this.playerType == 1) {
-      this.ctx.strokeText(`Angle: ${this.angle}º`, this.playerPosX, this.playerPosY + 50);
-      this.ctx.fillText(`Angle: ${this.angle}º`, this.playerPosX, this.playerPosY + 50);
+      this.ctx.strokeText(
+        `Angle: ${this.angle}º`,
+        this.playerPosX,
+        this.playerPosY + 50,
+      );
+      this.ctx.fillText(
+        `Angle: ${this.angle}º`,
+        this.playerPosX,
+        this.playerPosY + 50,
+      );
     } else {
-      this.ctx.strokeText(`Angle: ${this.angle - 180}º`, this.playerPosX, this.playerPosY + 50);
-      this.ctx.fillText(`Angle: ${this.angle - 180}º`, this.playerPosX, this.playerPosY + 50);
+      this.ctx.strokeText(
+        `Angle: ${this.angle - 180}º`,
+        this.playerPosX,
+        this.playerPosY + 50,
+      );
+      this.ctx.fillText(
+        `Angle: ${this.angle - 180}º`,
+        this.playerPosX,
+        this.playerPosY + 50,
+      );
     }
   }
 
@@ -143,8 +161,16 @@ export default class Player {
     this.ctx.strokeStyle = 'black';
     this.ctx.fillStyle = 'white';
     this.ctx.lineWidth = 4;
-    this.ctx.strokeText(`Fuel: ${this.fuel}%`, this.playerPosX, this.playerPosY + 94);
-    this.ctx.fillText(`Fuel: ${this.fuel}%`, this.playerPosX, this.playerPosY + 94);
+    this.ctx.strokeText(
+      `Fuel: ${this.fuel}%`,
+      this.playerPosX,
+      this.playerPosY + 94,
+    );
+    this.ctx.fillText(
+      `Fuel: ${this.fuel}%`,
+      this.playerPosX,
+      this.playerPosY + 94,
+    );
   }
 
   showForce() {
@@ -152,8 +178,16 @@ export default class Player {
     this.ctx.strokeStyle = 'black';
     this.ctx.fillStyle = 'white';
     this.ctx.lineWidth = 4;
-    this.ctx.strokeText(`Force: ${this.bulletSpeed.toFixed(0)} m/sec`, this.playerPosX, this.playerPosY + 72);
-    this.ctx.fillText(`Force: ${this.bulletSpeed.toFixed(0)} m/sec`, this.playerPosX, this.playerPosY + 72);
+    this.ctx.strokeText(
+      `Velocity: ${this.bulletSpeed.toFixed(0)} m/sec`,
+      this.playerPosX,
+      this.playerPosY + 72,
+    );
+    this.ctx.fillText(
+      `Velocity: ${this.bulletSpeed.toFixed(0)} m/sec`,
+      this.playerPosX,
+      this.playerPosY + 72,
+    );
   }
 
   resetFuel() {
