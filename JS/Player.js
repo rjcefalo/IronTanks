@@ -20,18 +20,16 @@ export default class Player {
     this.fuel = 100;
     this.turn = false;
     this.playerType = playerType;
-    this.lives = 0;
+    this.points = 0;
     this.opponent = null;
 
     if (this.playerType == 1) {
       this.playerPosX =
-        Math.random() * ((this.canvas.width - this.modelo.width * 2) / 2);
+        Math.random() * 400;
       this.angle = 0;
     } else {
-      this.playerPosX =
-        Math.random() *
-          (this.canvas.width - this.modelo.width * 2 - this.canvas.width / 2) +
-        this.canvas.width / 2;
+      this.playerPosX = Math.random() * ((this.canvas.width - (this.modelo.width * 2)) - (this.canvas.width - 400)) +
+        (this.canvas.width - 400);
       this.angle = 180;
     }
     this.playerPosY = Math.floor(this.canvas.height / 2);
@@ -49,7 +47,7 @@ export default class Player {
     this.showAngle();
     this.showGas();
     this.showForce();
-    this.showLives();
+    this.showPoints();
     this.bullets.forEach(function (bullet) {
       bullet.draw();
       bullet.move();
@@ -78,14 +76,14 @@ export default class Player {
       if (e.keyCode == 37) {
         if (this.fuel > 0) {
           this.playerPosX -= 2;
-          // this.fuel -= 1;
+          this.fuel -= 1;
         }
       }
 
       if (e.keyCode == 39) {
         if (this.fuel > 0) {
           this.playerPosX += 2;
-          // this.fuel -= 1;
+          this.fuel -= 1;
         }
       }
     }.bind(this);
@@ -222,22 +220,22 @@ export default class Player {
     this.opponent = opponent;
   }
 
-  lifeLost() {
-    this.lives++;
+  addPoints() {
+    this.points++;
   }
 
-  showLives() {
+  showPoints() {
     this.ctx.font = '18px Arial';
     this.ctx.strokeStyle = 'black';
     this.showTurn();
     this.ctx.lineWidth = 4;
     this.ctx.strokeText(
-      `Points: ${this.lives}`,
+      `Points: ${this.points}`,
       this.playerPosX,
       this.playerPosY - 72,
     );
     this.ctx.fillText(
-      `Points: ${this.lives}`,
+      `Points: ${this.points}`,
       this.playerPosX,
       this.playerPosY - 72,
     );

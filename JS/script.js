@@ -22,7 +22,6 @@ window.onload = function () {
       new Player('ironcanvas', 1, 'greenTank1'),
       new Player('ironcanvas', 2, 'blueTank1'),
     ];
-
     players[0].startTurn();
 
 
@@ -33,6 +32,7 @@ window.onload = function () {
       players[1].setOpponent(players[0]);
       players.forEach((player) => {
         player.draw();
+
         if (!CollitionGravity(
           player.playerPosY,
           player.modelo.height * 2,
@@ -41,9 +41,15 @@ window.onload = function () {
         ) {
           player.gravity();
         }
+
         if (player.bullets.length > 0 && player.opponent != null && Collition(player.bullets[0].bulletPosX, player.bullets[0].bulletPosY, player.bullets[0].modelo.width, player.bullets[0].modelo.height,
           player.opponent.playerPosX, player.opponent.playerPosY, player.opponent.modelo.width, player.opponent.modelo.height)) {
-          player.lifeLost();
+          player.addPoints();
+        }
+
+        if (player.points >= 30) {
+          clearInterval(intervalo);
+          alert(`Player ${player.playerType} has won!`);
         }
       });
 
