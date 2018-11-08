@@ -22,12 +22,12 @@ export default class Background {
     this.ctx.lineWidth = 20;
     this.ctx.textAlign = 'center';
     this.ctx.strokeText(
-      'First to get 10 points wins',
+      'First to get 20 points wins',
       this.canvas.width / 2,
       80,
     );
     this.ctx.fillText(
-      'First to get 10 points wins',
+      'First to get 20 points wins',
       this.canvas.width / 2,
       80,
     );

@@ -21,7 +21,7 @@ window.onload = function () {
     music.play();
     const background = new Background('ironcanvas');
     const ground = new GroundGenerator('ironcanvas');
-    let players = [
+    const players = [
       new Player('ironcanvas', 1, 'greenTank1'),
       new Player('ironcanvas', 2, 'blueTank1'),
     ];
@@ -38,19 +38,19 @@ window.onload = function () {
 
         if (!CollitionGravity(
           player.playerPosY,
-          player.modelo.height * 2,
+          player.modelo.height * 3,
           ground.startY,
         )
         ) {
           player.gravity();
         }
 
-        if (player.bullets.length > 0 && player.opponent != null && Collition(player.bullets[0].bulletPosX, player.bullets[0].bulletPosY, player.bullets[0].modelo.width * 2, player.bullets[0].modelo.height * 2,
-          player.opponent.playerPosX, player.opponent.playerPosY, player.opponent.modelo.width * 2, player.opponent.modelo.height * 2)) {
+        if (player.bullets.length > 0 && player.opponent != null && Collition(player.bullets[0].bulletPosX, player.bullets[0].bulletPosY, player.bullets[0].modelo.width * 3, player.bullets[0].modelo.height * 3,
+          player.opponent.playerPosX, player.opponent.playerPosY, player.opponent.modelo.width * 3, player.opponent.modelo.height * 3)) {
           player.addPoints();
         }
 
-        if (player.points >= 10) {
+        if (player.points >= 20) {
           Winner('ironcanvas', player.playerType);
           // clearInterval(intervalo);
         }

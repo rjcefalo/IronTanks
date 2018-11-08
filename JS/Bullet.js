@@ -26,8 +26,8 @@ export default class Bullet {
       this.modelo,
       this.bulletPosX,
       this.bulletPosY,
-      this.modelo.width * 2,
-      this.modelo.height * 2,
+      this.modelo.width * 3,
+      this.modelo.height * 3,
     );
   }
 

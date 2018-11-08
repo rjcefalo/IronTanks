@@ -13,8 +13,8 @@ export default class Player {
     this.ctx = this.canvas.getContext('2d');
     this.modelo = new Image();
     this.modelo.src = `../images/Vector/${player}.svg`;
-    this.width = this.modelo.width * 2;
-    this.height = this.modelo.height * 2;
+    this.width = this.modelo.width * 3;
+    this.height = this.modelo.height * 3;
     this.bullets = [];
     this.bulletSpeed = 0;
     this.fuel = 100;
@@ -31,7 +31,7 @@ export default class Player {
         Math.random() * 400;
       this.angle = 0;
     } else {
-      this.playerPosX = Math.random() * ((this.canvas.width - (this.modelo.width * 2)) - (this.canvas.width - 400)) +
+      this.playerPosX = Math.random() * ((this.canvas.width - (this.modelo.width * 3)) - (this.canvas.width - 400)) +
         (this.canvas.width - 400);
       this.angle = 180;
     }
@@ -43,8 +43,8 @@ export default class Player {
       this.modelo,
       this.playerPosX,
       this.playerPosY,
-      this.modelo.width * 2,
-      this.modelo.height * 2,
+      this.modelo.width * 3,
+      this.modelo.height * 3,
     );
 
     this.showAngle();
@@ -117,7 +117,7 @@ export default class Player {
       CollitionGravity(
         this.bullets[0].bulletPosY,
         this.bullets[0].modelo.height,
-        this.playerPosY + this.modelo.height * 2,
+        this.playerPosY + this.modelo.height * 3,
       )
     ) {
       this.bullets.pop();
