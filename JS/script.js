@@ -8,6 +8,10 @@ import Collition from './Collition.js';
 import CollitionGravity from './CollitionGravity.js';
 import Winner from './Winner.js';
 
+const GameConfig = {
+  totalPointsWin: 20,
+};
+
 window.onload = function () {
   $('#game-board').html(
     `<canvas id="ironcanvas" height="${window.innerHeight - 50}" width="${window.innerWidth}"></canvas>`,
@@ -50,7 +54,7 @@ window.onload = function () {
           player.addPoints();
         }
 
-        if (player.points >= 20) {
+        if (player.points >= GameConfig.totalPointsWin) {
           Winner('ironcanvas', player.playerType);
           // clearInterval(intervalo);
         }
