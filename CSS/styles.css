@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Sigmar+One');
+@font-face {
+  font-family: 'Sigmar One';  
+}
+
 html, body {
   width: 100%;
   height: 100%;

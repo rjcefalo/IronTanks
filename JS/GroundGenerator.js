@@ -16,10 +16,11 @@ export default class GroundGenerator {
     this.ctx.beginPath();
     this.ctx.strokeStyle = 'black';
     this.ctx.moveTo(this.startX, this.startY);
-    this.ctx.lineTo(this.endX, this.startY);
+    // this.ctx.lineTo(this.endX, this.startY);
+    this.ctx.quadraticCurveTo(this.canvas.width / 2, this.canvas.height / 2, this.endX, this.startY);
     this.ctx.globalAlpha = 1;
     // this.ctx.lineWidth = 20;
-    // this.ctx.stroke();
+    this.ctx.stroke();
     this.ctx.closePath();
   }
 

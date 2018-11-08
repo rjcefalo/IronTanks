@@ -136,66 +136,84 @@ export default class Player {
   }
 
   showAngle() {
-    this.ctx.font = '18px Arial';
+    let posXStats = 0;
+    const posYStats = this.canvas.height - 150;
+    if (this.playerType == 2) {
+      posXStats = this.canvas.width - 150;
+    }
+    this.ctx.textAlign = 'left';
+    this.ctx.font = '18px Sigmar One';
     this.ctx.strokeStyle = 'black';
     this.showTurn();
     this.ctx.lineWidth = 4;
     if (this.playerType == 1) {
       this.ctx.strokeText(
         `Angle: ${this.angle}º`,
-        this.playerPosX,
-        this.playerPosY + 50 + 30,
+        posXStats,
+        posYStats + 50 + 30,
       );
       this.ctx.fillText(
         `Angle: ${this.angle}º`,
-        this.playerPosX,
-        this.playerPosY + 50 + 30,
+        posXStats,
+        posYStats + 50 + 30,
       );
     } else {
       this.ctx.strokeText(
         `Angle: ${this.angle - 180}º`,
-        this.playerPosX,
-        this.playerPosY + 50 + 30,
+        posXStats,
+        posYStats + 50 + 30,
       );
       this.ctx.fillText(
         `Angle: ${this.angle - 180}º`,
-        this.playerPosX,
-        this.playerPosY + 50 + 30,
+        posXStats,
+        posYStats + 50 + 30,
       );
     }
   }
 
   showGas() {
-    this.ctx.font = '18px Arial';
+    let posXStats = 0;
+    const posYStats = this.canvas.height - 150;
+    if (this.playerType == 2) {
+      posXStats = this.canvas.width - 150;
+    }
+    this.ctx.textAlign = 'left';
+    this.ctx.font = '18px Sigmar One';
     this.ctx.strokeStyle = 'black';
     this.showTurn();
     this.ctx.lineWidth = 4;
     this.ctx.strokeText(
       `Fuel: ${this.fuel}%`,
-      this.playerPosX,
-      this.playerPosY + 94 + 30,
+      posXStats,
+      posYStats + 94 + 30,
     );
     this.ctx.fillText(
       `Fuel: ${this.fuel}%`,
-      this.playerPosX,
-      this.playerPosY + 94 + 30,
+      posXStats,
+      posYStats + 94 + 30,
     );
   }
 
   showForce() {
-    this.ctx.font = '18px Arial';
+    let posXStats = 0;
+    const posYStats = this.canvas.height - 150;
+    if (this.playerType == 2) {
+      posXStats = this.canvas.width - 150;
+    }
+    this.ctx.textAlign = 'left';
+    this.ctx.font = '18px Sigmar One';
     this.ctx.strokeStyle = 'black';
     this.showTurn();
     this.ctx.lineWidth = 4;
     this.ctx.strokeText(
-      `Velocity: ${this.bulletSpeed.toFixed(0)} m/sec`,
-      this.playerPosX,
-      this.playerPosY + 72 + 30,
+      `Velocity: ${this.bulletSpeed.toFixed(0)}`,
+      posXStats,
+      posYStats + 72 + 30,
     );
     this.ctx.fillText(
-      `Velocity: ${this.bulletSpeed.toFixed(0)} m/sec`,
-      this.playerPosX,
-      this.playerPosY + 72 + 30,
+      `Velocity: ${this.bulletSpeed.toFixed(0)}`,
+      posXStats,
+      posYStats + 72 + 30,
     );
   }
 
@@ -225,19 +243,24 @@ export default class Player {
   }
 
   showPoints() {
-    this.ctx.font = '18px Arial';
+    let posXStats = 100;
+    const posYStats = 150;
+    if (this.playerType == 2) {
+      posXStats = this.canvas.width - 240;
+    }
+    this.ctx.font = '25px Sigmar One';
     this.ctx.strokeStyle = 'black';
     this.showTurn();
     this.ctx.lineWidth = 4;
     this.ctx.strokeText(
       `Points: ${this.points}`,
-      this.playerPosX,
-      this.playerPosY - 72,
+      posXStats,
+      posYStats,
     );
     this.ctx.fillText(
       `Points: ${this.points}`,
-      this.playerPosX,
-      this.playerPosY - 72,
+      posXStats,
+      posYStats,
     );
   }
 

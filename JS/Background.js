@@ -16,20 +16,20 @@ export default class Background {
       this.canvas.width,
       this.canvas.height,
     );
-    this.ctx.font = '50px Arial';
+    this.ctx.font = '50px Sigmar One';
     this.ctx.strokeStyle = 'black';
     this.ctx.fillStyle = 'white';
-    this.ctx.lineWidth = 4;
+    this.ctx.lineWidth = 8;
     this.ctx.textAlign = 'center';
     this.ctx.strokeText(
       'First to get 30 points wins',
       this.canvas.width / 2,
-      50,
+      80,
     );
     this.ctx.fillText(
       'First to get 30 points wins',
       this.canvas.width / 2,
-      50,
+      80,
     );
   }
 }
