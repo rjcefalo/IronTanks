@@ -22,6 +22,10 @@ export default class Player {
     this.playerType = playerType;
     this.points = 0;
     this.opponent = null;
+    this.tankMoveSound = new Audio('../sounds/tankMove.ogg');
+    this.tankStopSound = new Audio('../sounds/engineShutdown.ogg');
+    this.tankShot = new Audio('../sounds/shot.ogg');
+    this.tankShotExp = new Audio('../sounds/tankShotExp.ogg');
 
     if (this.playerType == 1) {
       this.playerPosX =
@@ -43,6 +47,11 @@ export default class Player {
       this.modelo.width * 2,
       this.modelo.height * 2,
     );
+
+    // if (this.bullets.length > 0 && this.bullets[0].bulletPosY + 50 > this.bullets[0].startPosY && this.bullets[0].bulletPosX != this.bullets[0].startPosX) {
+    //   this.tankShotExp.play();
+    // }
+
 
     this.showAngle();
     this.showGas();
@@ -77,6 +86,7 @@ export default class Player {
         if (this.fuel > 0) {
           this.playerPosX -= 2;
           this.fuel -= 1;
+          this.tankMoveSound.play();
         }
       }
 
@@ -84,6 +94,7 @@ export default class Player {
         if (this.fuel > 0) {
           this.playerPosX += 2;
           this.fuel -= 1;
+          this.tankMoveSound.play();
         }
       }
     }.bind(this);
@@ -92,8 +103,18 @@ export default class Player {
       e.preventDefault();
       if (e.keyCode == 32) {
         this.shoot();
+        this.tankShot.play();
         this.fuel = 0;
         this.resetBulletSpeed();
+      }
+      if (e.keyCode == 37) {
+        this.tankMoveSound.pause();
+        this.tankStopSound.play();
+      }
+
+      if (e.keyCode == 39) {
+        this.tankMoveSound.pause();
+        this.tankStopSound.play();
       }
     }.bind(this);
 

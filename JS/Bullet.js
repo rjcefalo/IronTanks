@@ -11,11 +11,14 @@ export default class Bullet {
     } else {
       this.modelo.src = '../images/Vector/bulletPlayer2.svg';
     }
+    this.startPosY = bulletPosY;
+    this.startPosX = bulletPosX;
     this.bulletPosX = bulletPosX;
     this.bulletPosY = bulletPosY;
     this.vX = V * Math.cos((angle * Math.PI) / 180);
     this.vY = -V * Math.abs(Math.sin((angle * Math.PI) / 180));
     this.gravity = 0.2;
+    this.sound = new Audio('../sounds/tankShotExp.ogg');
   }
 
   draw() {
