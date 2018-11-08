@@ -25,7 +25,6 @@ export default class Player {
     this.tankMoveSound = new Audio('../sounds/tankMove.ogg');
     this.tankStopSound = new Audio('../sounds/engineShutdown.ogg');
     this.tankShot = new Audio('../sounds/shot.ogg');
-    this.tankShotExp = new Audio('../sounds/tankShotExp.ogg');
 
     if (this.playerType == 1) {
       this.playerPosX =
@@ -48,11 +47,6 @@ export default class Player {
       this.modelo.height * 2,
     );
 
-    // if (this.bullets.length > 0 && this.bullets[0].bulletPosY + 50 > this.bullets[0].startPosY && this.bullets[0].bulletPosX != this.bullets[0].startPosX) {
-    //   this.tankShotExp.play();
-    // }
-
-
     this.showAngle();
     this.showGas();
     this.showForce();
@@ -71,7 +65,7 @@ export default class Player {
     document.onkeydown = function (e) {
       e.preventDefault();
       if (e.keyCode == 32) {
-        this.bulletSpeed += 0.1;
+        this.bulletSpeed += 0.15;
       }
 
       if (e.keyCode == 38) {

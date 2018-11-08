@@ -6,6 +6,7 @@ import GroundGenerator from './GroundGenerator.js';
 import Player from './Player.js';
 import Collition from './Collition.js';
 import CollitionGravity from './CollitionGravity.js';
+import Winner from './Winner.js';
 
 window.onload = function () {
   $('#game-board').html(
@@ -16,9 +17,11 @@ window.onload = function () {
   });
 
   function StartGame() {
+    const music = new Audio('../sounds/mortal-kombat-theme-song-original.ogg');
+    music.play();
     const background = new Background('ironcanvas');
     const ground = new GroundGenerator('ironcanvas');
-    const players = [
+    let players = [
       new Player('ironcanvas', 1, 'greenTank1'),
       new Player('ironcanvas', 2, 'blueTank1'),
     ];
@@ -42,14 +45,14 @@ window.onload = function () {
           player.gravity();
         }
 
-        if (player.bullets.length > 0 && player.opponent != null && Collition(player.bullets[0].bulletPosX, player.bullets[0].bulletPosY, player.bullets[0].modelo.width, player.bullets[0].modelo.height,
-          player.opponent.playerPosX, player.opponent.playerPosY, player.opponent.modelo.width, player.opponent.modelo.height)) {
+        if (player.bullets.length > 0 && player.opponent != null && Collition(player.bullets[0].bulletPosX, player.bullets[0].bulletPosY, player.bullets[0].modelo.width * 2, player.bullets[0].modelo.height * 2,
+          player.opponent.playerPosX, player.opponent.playerPosY, player.opponent.modelo.width * 2, player.opponent.modelo.height * 2)) {
           player.addPoints();
         }
 
-        if (player.points >= 30) {
-          clearInterval(intervalo);
-          alert(`Player ${player.playerType} has won!`);
+        if (player.points >= 10) {
+          Winner('ironcanvas', player.playerType);
+          // clearInterval(intervalo);
         }
       });
 
@@ -69,6 +72,7 @@ window.onload = function () {
         }
       }
       $('#stop').click(() => {
+        music.pause();
         clearInterval(intervalo);
       });
     }, 1000 / 60);

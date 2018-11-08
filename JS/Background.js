@@ -19,15 +19,15 @@ export default class Background {
     this.ctx.font = '50px Sigmar One';
     this.ctx.strokeStyle = 'black';
     this.ctx.fillStyle = 'white';
-    this.ctx.lineWidth = 8;
+    this.ctx.lineWidth = 20;
     this.ctx.textAlign = 'center';
     this.ctx.strokeText(
-      'First to get 30 points wins',
+      'First to get 10 points wins',
       this.canvas.width / 2,
       80,
     );
     this.ctx.fillText(
-      'First to get 30 points wins',
+      'First to get 10 points wins',
       this.canvas.width / 2,
       80,
     );
