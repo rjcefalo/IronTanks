@@ -5,7 +5,7 @@ export default class Background {
     this.bgX = 0;
     this.bgY = 0;
     this.modelo = new Image();
-    this.modelo.src = '../images/bg.jpg';
+    this.modelo.src = './images/bg.jpg';
   }
 
   draw() {

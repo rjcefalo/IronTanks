@@ -21,7 +21,7 @@ window.onload = function () {
   });
 
   function StartGame() {
-    const music = new Audio('../sounds/mortal-kombat-theme-song-original.ogg');
+    const music = new Audio('./sounds/mortal-kombat-theme-song-original.ogg');
     music.play();
     const background = new Background('ironcanvas');
     const ground = new GroundGenerator('ironcanvas');

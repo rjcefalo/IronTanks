@@ -12,7 +12,7 @@ export default class Player {
     this.canvas = document.getElementById(id);
     this.ctx = this.canvas.getContext('2d');
     this.modelo = new Image();
-    this.modelo.src = `../images/Vector/${player}.svg`;
+    this.modelo.src = `./images/Vector/${player}.svg`;
     this.width = this.modelo.width * 3;
     this.height = this.modelo.height * 3;
     this.bullets = [];
@@ -22,9 +22,9 @@ export default class Player {
     this.playerType = playerType;
     this.points = 0;
     this.opponent = null;
-    this.tankMoveSound = new Audio('../sounds/tankMove.ogg');
-    this.tankStopSound = new Audio('../sounds/engineShutdown.ogg');
-    this.tankShot = new Audio('../sounds/shot.ogg');
+    this.tankMoveSound = new Audio('./sounds/tankMove.ogg');
+    this.tankStopSound = new Audio('./sounds/engineShutdown.ogg');
+    this.tankShot = new Audio('./sounds/shot.ogg');
 
     if (this.playerType == 1) {
       this.playerPosX =
