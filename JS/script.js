@@ -56,7 +56,6 @@ window.onload = function () {
 
         if (player.points >= GameConfig.totalPointsWin) {
           Winner('ironcanvas', player.playerType);
-          // clearInterval(intervalo);
         }
       });
 
