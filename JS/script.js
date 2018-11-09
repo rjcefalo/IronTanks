@@ -7,6 +7,7 @@ import Player from './Player.js';
 import Collition from './Collition.js';
 import CollitionGravity from './CollitionGravity.js';
 import Winner from './Winner.js';
+import WelcomeScreen from './WelcomeScreen.js';
 
 const GameConfig = {
   totalPointsWin: 20,
@@ -16,9 +17,17 @@ window.onload = function () {
   $('#game-board').html(
     `<canvas id="ironcanvas" height="${window.innerHeight - 50}" width="${window.innerWidth}"></canvas>`,
   );
+
+  const intervaloWelcome = setInterval(() => {
+    const welcomeScreen = new WelcomeScreen('ironcanvas');
+    welcomeScreen.draw();
+  }, 1000 / 60);
+
   $('#start').click(() => {
+    clearInterval(intervaloWelcome);
     StartGame();
   });
+
 
   function StartGame() {
     const music = new Audio('./sounds/mortal-kombat-theme-song-original.ogg');
@@ -74,6 +83,9 @@ window.onload = function () {
           }
         }
       }
+      $('#silence').click(() => {
+        music.pause();
+      });
       $('#stop').click(() => {
         music.pause();
         clearInterval(intervalo);
